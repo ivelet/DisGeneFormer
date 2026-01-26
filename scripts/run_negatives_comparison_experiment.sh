@@ -20,7 +20,7 @@ find "$ROOT" -type f -name config.yml -print0 |
       (
         set -x               
         python train.py  "$EXP"
-        python predict_genes.py  "$EXP"
+        python predict_genes_fold.py  "$EXP"
         python evaluate.py       "$EXP"
       )
   done

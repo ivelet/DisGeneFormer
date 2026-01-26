@@ -47,7 +47,7 @@ bash scripts/download_all_results.sh
 
 ## Reproduce all results
 
-To reproduce all results in the manuscript, run the following script to run inference and evaluation only and use the saved models without training them from scratch. Note that this assumes you previously downloaded all the saved models and graphs in `results`
+To reproduce all results in the manuscript WITHOUT training any models, run the following script to run inference and evaluation only and use the saved models without training them from scratch. Note that this assumes you previously downloaded all the saved models and graphs in `results`
 ```bash
 bash scripts/reproduce_all_results.sh
 ```
@@ -67,10 +67,10 @@ python train.py results/best_model
 
 ## Evaluate a trained DisGeneFormer model
 To run inference and evaluation directly, use the following command with the same config file used in training. 
-To use the model to predict a ranked list of disease genes, refer to the next step using `predict_disease_genes.py`.
+To use the model to predict a ranked list of disease genes, refer to the next step using the same script with the`--predict-only` flag. Note that this method runs inference and then evaluates on all 5 folds of the trained model and then averages over them as was reported for all experiments in the manuscript. 
 To run evaluation on existing ranked genes list without the need for any model inference, refer to the step after to use `evaluate.py`. 
 ```bash
-python predict_genes.py results/best_model
+python predict_genes_fold.py results/best_model
 ```
 
 ## Predict the top ranked genes using the model
