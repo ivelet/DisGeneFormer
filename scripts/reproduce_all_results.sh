@@ -22,10 +22,10 @@ find "$ROOT" -type f -name config.yml -print0 |
           echo -e "\n=== Processing $EXP ==="
           (
             set -x               
-            python predict_genes.py "$EXP"
+            python predict_genes_fold.py "$EXP"
             python evaluate.py "$EXP"
           )
       else
-          echo -e "\n⊘ Skipping $EXP (already processed)"
+          echo -e "\no Skipping $EXP (already processed)"
       fi
   done

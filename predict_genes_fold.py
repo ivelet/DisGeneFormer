@@ -155,17 +155,29 @@ def get_id_mappings(experiment_dir):
 
 def get_disease_name(disease_id):
     """Get disease name from ID."""
+    # disease_id_name_mapping = {
+    #     'C0006142': 'Malignant_Neoplasm_Of_breast',
+    #     'C0009402': 'Colorectal_Carcinoma',
+    #     'C0023893': 'Liver_Cirrhosis_Experimental',
+    #     'C0036341': 'Schizophrenia',
+    #     'C0376358': 'Malignant_Neoplasm_Of_Prostate',
+    #     'C0001973': 'Alcoholic_Intoxication_Chronic',
+    #     'C0011581': 'Depressive_Disorder',
+    #     'C0860207': 'Drug_Induced_Liver_Disease',
+    #     'C3714756': 'Intellectual_Disability',
+    #     'C0005586': 'Bipolar_Disorder'
+    # }
     disease_id_name_mapping = {
-        'C0006142': 'Malignant_Neoplasm_Of_breast',
-        'C0009402': 'Colorectal_Carcinoma',
-        'C0023893': 'Liver_Cirrhosis_Experimental',
+        'C0006142': 'Breast Cancer',
+        'C0009402': 'Colorectal Carcinoma',
+        'C0023893': 'Liver Cirrhosis',
         'C0036341': 'Schizophrenia',
-        'C0376358': 'Malignant_Neoplasm_Of_Prostate',
-        'C0001973': 'Alcoholic_Intoxication_Chronic',
-        'C0011581': 'Depressive_Disorder',
-        'C0860207': 'Drug_Induced_Liver_Disease',
-        'C3714756': 'Intellectual_Disability',
-        'C0005586': 'Bipolar_Disorder'
+        'C0376358': 'Prostate Cancer',
+        'C0001973': 'Chronic Alcoholic Intoxication',
+        'C0011581': 'Depressive Disorder',
+        'C0860207': 'Drug Induced Liver Disease',
+        'C3714756': 'Intellectual Disability',
+        'C0005586': 'Bipolar Disorder'
     }
     return disease_id_name_mapping.get(disease_id, 'Unknown_Disease')
 
@@ -354,6 +366,7 @@ def run_inference_for_model(
                 
                 k_rows.append({
                     "Disease": test_name,
+                    "Disease_name": get_disease_name(test_name),
                     "K": top_k,
                     "Precision": round(precision, 4),
                     "Recall": round(recall, 4),

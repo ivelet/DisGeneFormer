@@ -123,8 +123,21 @@ def evaluate_ranked_dir(args):
             continue
         dis_name = disease_id_name_mapping.get(dis_id, "Unknown_Disease")
 
-        ranked_genes = (pd.read_csv(tsv, sep="\t", usecols=[0], dtype=str)
-                         .iloc[:, 0].map(clean_id).tolist())
+        # Read the gene_id column by name (not by position)
+        try:
+            df = pd.read_csv(tsv, sep="\t", dtype=str)
+            if 'gene_id' not in df.columns:
+                print(f"  ✘︎ No 'gene_id' column found in {tsv.name}, skipping")
+                continue
+            # Drop NaN values and clean IDs
+            ranked_genes = df['gene_id'].dropna().map(clean_id).tolist()
+        except Exception as e:
+            print(f"  ✘︎ Error reading {tsv.name}: {e}, skipping")
+            continue
+
+        if not ranked_genes:
+            print(f"  ✘︎ No valid gene IDs found in {tsv.name}, skipping")
+            continue
 
         omim_pos_path = create_omim_positive_list(
             dis_id, umls_omim_mapping_path, all_omim_associations_path, omim_pos_dir
