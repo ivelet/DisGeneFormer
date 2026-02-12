@@ -88,3 +88,37 @@ To evaluate the ranked genes of a model on the list of evaluation diseases, with
 python evaluate.py results/best_model
 ```
 
+# Plot results from the manuscript
+
+The following can be used to plot the results presented in the manuscript.
+
+## Plot model comparison true positive (TP) curves 
+
+First, combine the results for the model comparison to get a table of the top K {5, 20, 50} precision of DisGeneFormer (both the best version and the one trained on the full XC_V3 version of HumanNet) against other DGP methods compared against in the manuscript which are saved in `results/model_comparison` using the following script which can be used to combine any of the results into a single table. The following uses all default values which can be set with flags.
+
+```bash
+python plots/scripts/combine_results.py results/model_comparison 
+```
+
+Run the following script to plot the number of true positives for each value of K within a range, showing each method as a separate curve and creating a separate plot for each disease to compare different methods on the same disease.
+
+```bash
+python plots/scripts/plot_tp_curves.py results/model_comparison --output-dir plots/results/method_comparison_tp_curves --method-names plots/results/method_comparison_tp_curves/method_names.json
+```
+
+## Plot HumanNet comparison TP curves
+Using the same script, we can plot the results comparing different versions of HumanNet that DisGeneFormer was trained on.
+
+```bash
+python plots/scripts/plot_tp_curves.py results/humannet_comparison --output-dir plots/results/humannet_comparison_tp_curves --method-names plots/results/humannet_comparison_tp_curves/method_names.json  --exclude-methods humannet_fn_random_negatives humannet_fn_v3_random_negatives humannet_xc_v3_filtered_random_negatives humannet_xc_v3_random_negatives humannet_xn_v2_random_negatives humannet_fn_v2_random_negatives --method-names plots/results/humannet_negatives_comparison_tp_curves/method_names.json
+```
+
+## Plot Hard Negatives identity scatter plot
+We then plot the identity scatter plot comparing the difference in performance when training on Hard Negatives (HNs) compared to training on randomly generated negative association data (RNs).
+
+```bash
+python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --k-value 150 --metric omim_tp
+```
+
+
+
