@@ -120,5 +120,10 @@ We then plot the identity scatter plot comparing the difference in performance w
 python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --k-value 150 --metric omim_tp
 ```
 
+## Reproduce graph feature ablation table
+To reproduce the results in the manuscript observing the effects of removing individual feature types from the gene and disease graphs, including the table of results, run the following:
 
+```bash
+bash scripts/run_feature_removal_experiment.sh
+```
 

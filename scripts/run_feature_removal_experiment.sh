@@ -55,3 +55,7 @@ find "$ROOT" -type f -name config.yml -print0 |
         python evaluate_fold.py       "$EXP"
       )
   done
+
+  echo "Combine results and generate tables for GeneNet and DiseaseNet feature removal"
+  python plots/scripts/combine_results.py results/disease_net_feature_removal
+  python plots/scripts/combine_results.py results/gene_net_feature_removal
