@@ -11,11 +11,14 @@ job_output_log
 *.png
 *.svg
 *.csv*
+*.tsv*
 *.zip
 data
 data1
-plots
+plots/old_results
 log
-results
 source/DisGeneFormer_ablation.py
 predict_genes.py
+/gene_net/*
+/disease_net/*
+*ranked_genes*

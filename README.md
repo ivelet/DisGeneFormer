@@ -78,7 +78,7 @@ The model produces a list of ranked genes for each given disease defined in `dat
 
 To get a list of ranked disease genes for the diseases defined in `data/eval_diseases.tsv`, run `predict_disease_genes.py <path_to_saved_model>` as done below:
 ```bash
-python predict_genes.py results/best_model --predict-only
+python predict_genes_fold.py results/best_model --predict-only
 ```
 
 ## Evaluate model predictions for DisGeneFormer and other model predictions
@@ -117,8 +117,7 @@ python plots/scripts/plot_tp_curves.py results/humannet_comparison --output-dir 
 We then plot the identity scatter plot comparing the difference in performance when training on Hard Negatives (HNs) compared to training on randomly generated negative association data (RNs).
 
 ```bash
-python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --k-value 150 --metric omim_tp
-```
+python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --output-dir plots/results/negatives_comparison_identity_scatter --k-value 20 --metric omim_prec --exclude-diseases C0376358 C0009402```
 
 ## Reproduce graph feature ablation table
 To reproduce the results in the manuscript observing the effects of removing individual feature types from the gene and disease graphs, including the table of results, run the following:
