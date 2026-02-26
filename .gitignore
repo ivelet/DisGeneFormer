@@ -7,7 +7,6 @@ job_output_log
 *.pt
 *.ptm
 *.ipynb
-*.pdf
 *.png
 *.svg
 *.csv*
