@@ -1,7 +1,7 @@
 # DisGeneFormer
 An Attention-based Graph Transformer for Disease Gene Prioritization. 
 
-Please refer to the original paper for additional information:
+Please refer to the paper for additional information.
 
 Any publication that discloses findings arising from using this source code, the model parameters, or outputs produced by those should also cite this paper.
 
@@ -128,7 +128,8 @@ python plots/scripts/plot_tp_curves.py results/humannet_comparison --output-dir 
 We then plot the identity scatter plot comparing the difference in performance when training on Hard Negatives (HNs) compared to training on randomly generated negative association data (RNs).
 
 ```bash
-python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --output-dir plots/results/negatives_comparison_identity_scatter --k-value 20 --metric omim_prec --exclude-diseases C0376358 C0009402```
+python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --output-dir plots/results/negatives_comparison_identity_scatter --k-value 20 --metric omim_prec --exclude-diseases C0376358 C0009402
+```
 
 ## Reproduce graph feature ablation table
 To reproduce the results in the manuscript observing the effects of removing individual feature types from the gene and disease graphs, including the table of results, run the following:
