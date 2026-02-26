@@ -27,20 +27,31 @@ conda activate DisGeneFormer_env
 pip install -r environment/requirements.txt
 ```
 
-## Download all models and datasets
+## Download all datasets
 To download all raw datasets needed to reproduce all experiments in the manuscript, use:
 ```bash
 bash scripts/download_all_datasets.sh
 ```
 
 ## Reproduce all experiments
-To reproduce all experiments from scratch in the manuscript, you may run the following script. Note that this includes training each model from scratch and then running inference and evaluation which may take some time. To do this faster, skip to the next step instead to download the trained model weights and only run inference and evaluation.
+To reproduce all experiments from scratch in the manuscript, you may run the following script. Note that this includes training each model from scratch and then running inference and evaluation which may take some time. 
+
+<!-- NOTE: there is a total of 15-25 experiments included to reproduce all results in the manuscript which will take ~ -->
+
+To save computational time, skip to the next step to download all models and results to avoid having to run all training and inference from scratch.
 ```bash
 bash scripts/reproduce_all_experiments.sh
 ```
 
 ## Download all models and results
-To avoid having to retrain all models from scratch to reproduce all experiments, we additionally provide all trained models and results from inference (ranked genes lists) and evaluation as reported in the manuscript. You may then use the trained model to run inference and evaluation without the need to train them from scratch. If you would like to train all models from scratch, you may skip to the next step.
+To avoid having to retrain all models from scratch to reproduce all experiments, we additionally provide all trained models and results from inference (ranked genes lists) and evaluation as reported in the manuscript. You may then use the trained model to run inference and evaluation without the need to train them from scratch.
+
+Note that all reported results are the average over 5 training folds and thus all saved models from 5 folds are required to reproduce the results. Downloading all models will be approximately 30 GB. To save storage space, you may instead skip this step and download all results including the ranked genes list in the next step which excludes all the saved models. This approximately reduces the storage requirements from 30 GB to 500 MB.
+```bash
+bash scripts/download_all_models_and_results.sh
+```
+
+To download only all the results including ranked genes lists without model files, run the following:
 ```bash
 bash scripts/download_all_results.sh
 ```
