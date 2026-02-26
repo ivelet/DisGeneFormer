@@ -6,8 +6,6 @@
 nvidia-smi
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate DisGeneFormer_env
-set -euo pipefail
-
 # By default, runs all experiments found under experiments/
 ROOT="results"          
 
@@ -23,9 +21,9 @@ find "$ROOT" -type f -name config.yml -print0 |
             set -x               
             python train.py "$EXP"
             python predict_genes_fold.py "$EXP"
-            python evaluate.py "$EXP"
+            python evaluate_fold.py "$EXP"
           )
       else
-          echo -e "\n⊘ Skipping $EXP (already processed)"
+          echo -e "\Skipping $EXP (already processed)"
       fi
   done
