@@ -9,6 +9,9 @@ If you encounter any problems, please open an Issue on this repository.
 
 ## Table of contents
 * [Setup](#setup)
+* [Download all datasets](#download-all-datasets)
+* [Reproduce all experiments](#reproduce-all-experiments)
+* [Download all models and results](#download-all-datasets)
 * [Usage](#usage)
     * [Train the generic model](#train-the-generic-model)
     * [Predict using the generic model](#predict-using-the-generic-model)
@@ -31,6 +34,11 @@ pip install -r environment/requirements.txt
 To download all raw datasets needed to reproduce all experiments in the manuscript, use:
 ```bash
 bash scripts/download_all_datasets.sh
+```
+
+To run the Model Comparison experiment, the ranked genes lists reported by the other methods must be downloaded using:
+```bash
+bash scripts/download_model_comparison_results.sh
 ```
 
 ## Reproduce all experiments
