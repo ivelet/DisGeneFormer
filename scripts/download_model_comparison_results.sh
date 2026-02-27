@@ -10,7 +10,8 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # Configuration
-MODEL_COMPARISON_URL="https://zenodo.org/records/18787455/files/model_comparison.zip?download=1"
+MODEL_COMPARISON_URL_RESULTS_ONLY="https://zenodo.org/records/18787455/files/model_comparison.zip?download=1"
+MODEL_COMPARISON_URL="https://zenodo.org/records/18791945/files/model_comparison.zip?download=1"
 ZIP_FILE="model_comparison.zip"
 KEEP_ZIP=false
 
