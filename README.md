@@ -75,16 +75,16 @@ If you already have the ranked genes, you may speed this up even further by just
 ```bash
 bash scripts/evaluate_all.sh
 ```
-# Usage
+## Usage
 In the following steps, we demonstrate how to use the model, including training a model from scratch, using the model for inference by predicting a ranked list of disease genes given one or a list of diseases, and running evaluation on the ranked genes list predicted against known associated disease genes for the given diseases.
 
-## Train a new model
+### Train a new model
 To train a new model, you must have a config.yml file, ideally inside the `experiment_dir` passed as an argument. Refer to `default_config.yml` for the format and parameters needed. The same config file should be used for training, prediction, and evaluation to ensure reproduceability. To train a new DisGeneFormer model based on the configuration, call `train.py` and pass the directory containing the `config.yml` file, as shown below:
 ```bash
 python train.py results/best_model
 ```
 
-## Evaluate a trained DisGeneFormer model
+### Evaluate a trained DisGeneFormer model
 To run inference and evaluation directly, use the following command with the same config file used in training. 
 To use the model to predict a ranked list of disease genes, refer to the next step using the same script with the`--predict-only` flag. Note that this method runs inference and then evaluates on all 5 folds of the trained model and then averages over them as was reported for all experiments in the manuscript. 
 To run evaluation on existing ranked genes list without the need for any model inference, refer to the step after to use `evaluate.py`. 
@@ -92,7 +92,7 @@ To run evaluation on existing ranked genes list without the need for any model i
 python predict_genes_fold.py results/best_model
 ```
 
-## Predict the top ranked genes using the model
+### Predict the top ranked genes using the model
 The model produces a list of ranked genes for each given disease defined in `data/eval_diseases.tsv`. Diseases can be provided either as OMIM IDs or as UMLS CUIs which will each be treated as a set of OMIM IDs and mapped accordingly, based on the mapping defined in `data/test/UMLS_OMIM_map.tsv`. 
 
 To get a list of ranked disease genes for the diseases defined in `data/eval_diseases.tsv`, run `predict_disease_genes.py <path_to_saved_model>` as done below:
@@ -100,18 +100,18 @@ To get a list of ranked disease genes for the diseases defined in `data/eval_dis
 python predict_genes_fold.py results/best_model --predict-only
 ```
 
-## Evaluate model predictions for DisGeneFormer and other model predictions
-To evaluate the ranked genes of a model on the list of evaluation diseases, without requiring training or inference, simply run `python evaluate.py <path_to_ranked_genes>`. This expects a `ranked_genes` folder inside the directory and each ranked genes file should follow the naming convention `<diseaseId>_ranked_genes.tsv`, such as: 
+### Evaluate model predictions for DisGeneFormer and other models
+To evaluate the ranked genes of a model on the list of evaluation diseases, without requiring training or inference, simply run `python evaluate.py <path_to_ranked_genes>`. This expects a `ranked_genes` folder inside the directory and each ranked genes file should follow the naming convention `<diseaseId>_ranked_genes.tsv` as shown below. To evaluate the average over all model folds as reported in the manuscript, run `evaluate_fold.py` as shown below on the best version of DisGeneFormer: 
 
 ```bash
-python evaluate.py results/best_model
+python evaluate_fold.py results/best_model
 ```
 
-# Plot results from the manuscript
+## Plot results from the manuscript
 
-The following can be used to plot the results presented in the manuscript.
+The following can be used to reproduce all plots from the manuscript.
 
-## Plot model comparison true positive (TP) curves 
+### Plot model comparison true positive (TP) curves 
 
 First, combine the results for the model comparison to get a table of the top K {5, 20, 50} precision of DisGeneFormer (both the best version and the one trained on the full XC_V3 version of HumanNet) against other DGP methods compared against in the manuscript which are saved in `results/model_comparison` using the following script which can be used to combine any of the results into a single table. The following uses all default values which can be set with flags.
 
@@ -125,21 +125,21 @@ Run the following script to plot the number of true positives for each value of 
 python plots/scripts/plot_tp_curves.py results/model_comparison --output-dir plots/results/method_comparison_tp_curves --method-names plots/results/method_comparison_tp_curves/method_names.json
 ```
 
-## Plot HumanNet comparison TP curves
+### Plot HumanNet comparison TP curves
 Using the same script, we can plot the results comparing different versions of HumanNet that DisGeneFormer was trained on.
 
 ```bash
 python plots/scripts/plot_tp_curves.py results/humannet_comparison --output-dir plots/results/humannet_comparison_tp_curves --method-names plots/results/humannet_comparison_tp_curves/method_names.json  --exclude-methods humannet_fn_random_negatives humannet_fn_v3_random_negatives humannet_xc_v3_filtered_random_negatives humannet_xc_v3_random_negatives humannet_xn_v2_random_negatives humannet_fn_v2_random_negatives --method-names plots/results/humannet_negatives_comparison_tp_curves/method_names.json
 ```
 
-## Plot Hard Negatives identity scatter plot
+### Plot Hard Negatives identity scatter plot
 We then plot the identity scatter plot comparing the difference in performance when training on Hard Negatives (HNs) compared to training on randomly generated negative association data (RNs).
 
 ```bash
 python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --output-dir plots/results/negatives_comparison_identity_scatter --k-value 20 --metric omim_prec --exclude-diseases C0376358 C0009402
 ```
 
-## Reproduce graph feature ablation table
+### Reproduce graph feature ablation table
 To reproduce the results in the manuscript observing the effects of removing individual feature types from the gene and disease graphs, including the table of results, run the following:
 
 ```bash
