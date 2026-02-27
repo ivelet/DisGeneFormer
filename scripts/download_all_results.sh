@@ -70,7 +70,8 @@ echo -e "${GREEN}✓ All prerequisites installed${NC}\n"
 # Warn if results directory already exists
 if [[ -d "results" ]]; then
     echo -e "${YELLOW}⚠ Warning: results/ directory already exists${NC}"
-    echo -e "${YELLOW}   Contents will be overwritten during extraction${NC}"
+    echo -e "${YELLOW}   Files in the archive will overwrite matching local files${NC}"
+    echo -e "${YELLOW}   (.ptm models and other files not in archive will be preserved)${NC}"
     read -p "   Continue? (y/N) " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -106,6 +107,33 @@ if [ "$KEEP_ZIP" = false ]; then
     echo -e "${GREEN}✓ Cleaned up zip file${NC}"
 else
     echo -e "${YELLOW}ℹ Kept zip file: $OUTPUT_FILE${NC}"
+fi
+
+# Clean up unwanted directories that shouldn't be in the archive
+echo -e "\n${BLUE}Cleaning up unwanted directories...${NC}"
+UNWANTED_DIRS=(
+    "results/humannet_comparison/humannet_fn_v2_random_negatives"
+    "results/humannet_comparison/humannet_fn_v3_random_negatives"
+    "results/humannet_comparison/humannet_xc_v3_random_negatives"
+    "results/humannet_comparison/humannet_xc_v3_filtered_random_negatives"
+    "results/humannet_comparison/humannet_xn_v2_random_negatives"
+    "results/best_model_copy"
+    "results/gene_net_xc_v3_feature_removal"
+)
+
+REMOVED_COUNT=0
+for dir in "${UNWANTED_DIRS[@]}"; do
+    if [[ -d "$dir" ]]; then
+        echo -e "  ${YELLOW}• Removing: $dir${NC}"
+        rm -rf "$dir"
+        REMOVED_COUNT=$((REMOVED_COUNT + 1))
+    fi
+done
+
+if [[ $REMOVED_COUNT -gt 0 ]]; then
+    echo -e "${GREEN}✓ Removed $REMOVED_COUNT unwanted directory/directories${NC}"
+else
+    echo -e "${GREEN}✓ No unwanted directories found${NC}"
 fi
 
 # Summary

@@ -9,4 +9,5 @@ find "$ROOT" -type d -name ranked_genes -print0 |
   while read -r EXP; do
       echo ">>> python evaluate.py $EXP"
       python evaluate.py "$EXP"
+      python evaluate_fold.py "$EXP"
   done
