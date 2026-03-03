@@ -1,0 +1,8 @@
+results/humannet_comparison/humannet_fn_v2_random_negatives
+results/humannet_comparison/humannet_fn_v3_random_negatives
+results/humannet_comparison/humannet_xc_v3_random_negatives
+results/humannet_comparison/humannet_xc_v3_filtered_random_negatives
+results/humannet_comparison/humannet_xn_v2_random_negatives
+results/best_model_copy
+results/gene_net_xc_v3_feature_removal
+

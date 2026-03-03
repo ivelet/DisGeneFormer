@@ -21,3 +21,4 @@ predict_genes.py
 /gene_net/*
 /disease_net/*
 *ranked_genes*
+/crispr_evo/*

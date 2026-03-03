@@ -13,6 +13,7 @@ import argparse
 from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 from typing import Dict, List, Optional
 import warnings
 warnings.filterwarnings('ignore')
@@ -52,7 +53,7 @@ def parse_args():
     parser.add_argument(
         "--metric-file",
         type=str,
-        default="top_k_eval_metrics_best.csv",
+        default="top_k_eval_metrics_mean.csv",
         help="Name of metrics CSV file in each method directory"
     )
     parser.add_argument(
@@ -194,6 +195,8 @@ def collect_method_data(results_root: Path, metric_file: str,
         # Add method name
         method_name = method_names.get(method_dir.name, method_dir.name)
         df['method'] = method_name
+
+        df['omim_tp'] = df['omim_tp'].round().astype(int)
         
         all_data.append(df[['disease_id', 'K', 'omim_tp', 'method']])
     
@@ -267,6 +270,9 @@ def main():
         ax.set_xlabel("K (top-ranked genes list)")
         ax.set_ylabel("True Positives")
         ax.grid(alpha=0.3)
+
+        # Ensure small values of K are still integer on the axis 
+        ax.yaxis.set_major_locator(MaxNLocator(integer=True))
         
         ax.legend(
             title="Method", fontsize="small",

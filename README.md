@@ -81,7 +81,11 @@ In the following steps, we demonstrate how to use the model, including training 
 ### Train a new model
 To train a new model, you must have a config.yml file, ideally inside the `experiment_dir` passed as an argument. Refer to `default_config.yml` for the format and parameters needed. The same config file should be used for training, prediction, and evaluation to ensure reproduceability. To train a new DisGeneFormer model based on the configuration, call `train.py` and pass the directory containing the `config.yml` file, as shown below:
 ```bash
-python train.py results/best_model
+python train.py results/DisGeneFormer 
+```
+Or to train the version of DisGeneFormer with filtered edges 
+```bash
+python train.py results/DisGeneFormer_filtered
 ```
 
 ### Evaluate a trained DisGeneFormer model
@@ -89,7 +93,11 @@ To run inference and evaluation directly, use the following command with the sam
 To use the model to predict a ranked list of disease genes, refer to the next step using the same script with the`--predict-only` flag. Note that this method runs inference and then evaluates on all 5 folds of the trained model and then averages over them as was reported for all experiments in the manuscript. 
 To run evaluation on existing ranked genes list without the need for any model inference, refer to the step after to use `evaluate.py`. 
 ```bash
-python predict_genes_fold.py results/best_model
+python predict_genes_fold.py results/DisGeneFormer
+```
+Or the filtered version
+```bash
+python predict_genes_fold.py results/DisGeneFormer_filtered
 ```
 
 ### Predict the top ranked genes using the model
@@ -97,14 +105,22 @@ The model produces a list of ranked genes for each given disease defined in `dat
 
 To get a list of ranked disease genes for the diseases defined in `data/eval_diseases.tsv`, run `predict_disease_genes.py <path_to_saved_model>` as done below:
 ```bash
-python predict_genes_fold.py results/best_model --predict-only
+python predict_genes_fold.py results/DisGeneFormer --predict-only
+```
+Or the filtered version
+```bash
+python predict_genes_fold.py results/DisGeneFormer_filtered --predict-only
 ```
 
 ### Evaluate model predictions for DisGeneFormer and other models
 To evaluate the ranked genes of a model on the list of evaluation diseases, without requiring training or inference, simply run `python evaluate.py <path_to_ranked_genes>`. This expects a `ranked_genes` folder inside the directory and each ranked genes file should follow the naming convention `<diseaseId>_ranked_genes.tsv` as shown below. To evaluate the average over all model folds as reported in the manuscript, run `evaluate_fold.py` as shown below on the best version of DisGeneFormer: 
 
 ```bash
-python evaluate_fold.py results/best_model
+python evaluate_fold.py results/DisGeneFormer
+```
+Or the filered version
+```bash
+python evaluate_fold.py results/DisGeneFormer_filtered
 ```
 
 ## Plot results from the manuscript
@@ -129,7 +145,7 @@ python plots/scripts/plot_tp_curves.py results/model_comparison --output-dir plo
 Using the same script, we can plot the results comparing different versions of HumanNet that DisGeneFormer was trained on.
 
 ```bash
-python plots/scripts/plot_tp_curves.py results/humannet_comparison --output-dir plots/results/humannet_comparison_tp_curves --method-names plots/results/humannet_comparison_tp_curves/method_names.json  --exclude-methods humannet_fn_random_negatives humannet_fn_v3_random_negatives humannet_xc_v3_filtered_random_negatives humannet_xc_v3_random_negatives humannet_xn_v2_random_negatives humannet_fn_v2_random_negatives --method-names plots/results/humannet_negatives_comparison_tp_curves/method_names.json
+python plots/scripts/plot_tp_curves.py results/humannet_comparison --output-dir plots/results/humannet_comparison_tp_curves --method-names plots/results/humannet_comparison_tp_curves/method_names.json 
 ```
 
 ### Plot Hard Negatives identity scatter plot

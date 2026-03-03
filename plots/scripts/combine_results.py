@@ -45,7 +45,7 @@ def parse_args():
     parser.add_argument(
         "--metric-file",
         type=str,
-        default="top_k_eval_metrics_best.csv",
+        default="top_k_eval_metrics_mean.csv",
         help="Name of metrics CSV file in each method directory"
     )
     parser.add_argument(
