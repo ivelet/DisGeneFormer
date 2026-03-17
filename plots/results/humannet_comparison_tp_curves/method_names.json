@@ -3,5 +3,7 @@
   "humannet_fn_v3": "FN V3",
   "humannet_xc_v3": "XC V3",
   "humannet_xc_v3_filtered": "XC V3 (filtered)",
-  "humannet_xn_v2": "XN V2"
+  "humannet_xn_v2": "XN V2",
+  "humannet_xc_v3_filtered_2": "XC V3 (filtered)",
+  "humannet_xc_v3_omim_filtered": "XC V3 (OMIM filtered)"
 }

@@ -6,7 +6,6 @@
 nvidia-smi
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate DisGeneFormer_env
-set -euo pipefail
 
 ROOT="results/humannet_comparison"         
 

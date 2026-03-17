@@ -12,7 +12,7 @@ model:
 gene_net:
   dataset_root: 'data/gene_net'
   features_to_use: '[hpo, pathways]'
-  humannet_version: 'XC-V3_disease_filtered'
+  humannet_version: 'XC-V3_omim_filtered'
   perturb: False
   perturb_setting: 'random'
   perturb_prob: 0.01
@@ -24,7 +24,7 @@ gene_net:
   gda_edges: False
   raw_file_paths:
     gene_ontologies: 'data/gene_net/raw/gene_ontologies.tsv'
-    humannet: 'data/gene_net/raw/HumanNet-XC-V3_disease_filtered.tsv'
+    humannet: 'data/gene_net/raw/HumanNet-XC-V3_omim_filtered.tsv'
     gene_hpo_diseases: 'data/gene_net/raw/gene_hpo_disease.tsv'
     gene_expressions: 'data/gene_net/raw/gene_expressions.tsv'
     gene_pathways: 'data/gene_net/raw/gene_pathway_associations.tsv'
@@ -59,7 +59,7 @@ train:
   lr: 0.000001
   weight_decay: 0.000001
   model_tmp_storage_path: '/tmp'
-  experiment_dir: 'experiments/humannet_comparison/humannet_xc_v3_filtered'
+  experiment_dir: 'experiments/humannet_comparison/humannet_xc_v3__omim_filtered'
   info_each_epoch: 1
   loss_fn: 'focal_loss'
   optimizer: 'Adam'

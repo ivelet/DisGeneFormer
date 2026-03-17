@@ -152,7 +152,7 @@ python plots/scripts/plot_tp_curves.py results/humannet_comparison --output-dir 
 We then plot the identity scatter plot comparing the difference in performance when training on Hard Negatives (HNs) compared to training on randomly generated negative association data (RNs).
 
 ```bash
-python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --output-dir plots/results/negatives_comparison_identity_scatter --k-value 20 --metric omim_prec --exclude-diseases C0376358 C0009402
+python plots/scripts/plot_identity_scatter.py results/negative_comparison random_negatives hard_negatives --output-dir plots/results/negatives_comparison_identity_scatter --k-value 20 --metric omim_prec
 ```
 
 ### Reproduce graph feature ablation table
@@ -161,4 +161,19 @@ To reproduce the results in the manuscript observing the effects of removing ind
 ```bash
 bash scripts/run_feature_removal_experiment.sh
 ```
+
+<!-- ### Filter GeneNet edges 
+To filter the edges added to GeneNet based on specific OMIM disorders, you may run the following to create a custom filtered version of HumanNet.
+
+For all genes associated with specific diseases
+
+```bash
+python scripts/filter_humannet.py data/gene_net/raw/HumanNet-XC-V3.tsv data/test/raw/all_omim_associations.tsv data/gene_net/raw/HumanNet-XC-V3_disease_filtered_2.tsv --disease-map data/test/UMLS_OMIM_map.tsv --diseases C0006142 C0009402 C0023893 C0036341 C0376358 C0001973 C0011581 C0860207 C0005586 C3714756
+```
+
+For all OMIM genes
+
+```bash
+python scripts/filter_humannet.py data/gene_net/raw/HumanNet-XC-V3.tsv data/test/raw/all_omim_associations.tsv data/gene_net/raw/HumanNet-XC-V3_omim_filtered.tsv 
+``` -->
 

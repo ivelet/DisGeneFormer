@@ -22,3 +22,7 @@ predict_genes.py
 /disease_net/*
 *ranked_genes*
 /crispr_evo/*
+plots/combine_figs.tex
+scripts/zip_all_results.sh
+scripts/setup_experiment.sh
+scripts/run_humannet_comparison.sh

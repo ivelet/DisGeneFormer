@@ -24,7 +24,7 @@ gene_net:
   gda_edges: False
   raw_file_paths:
     gene_ontologies: 'data/gene_net/raw/gene_ontologies.tsv'
-    humannet: 'data/gene_net/raw/HumanNet-XC-V3_disease_filtered.tsv'
+    humannet: 'data/gene_net/raw/HumanNet-XC-V3.tsv'
     gene_hpo_diseases: 'data/gene_net/raw/gene_hpo_disease.tsv'
     gene_expressions: 'data/gene_net/raw/gene_expressions.tsv'
     gene_pathways: 'data/gene_net/raw/gene_pathway_associations.tsv'

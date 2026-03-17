@@ -55,7 +55,7 @@ def parse_args():
     parser.add_argument(
         "--metric-file",
         type=str,
-        default="top_k_eval_metrics_best.csv",
+        default="top_k_eval_metrics_mean.csv",
         help="Name of metrics CSV file in each method directory"
     )
     parser.add_argument(
@@ -96,7 +96,7 @@ def parse_args():
         "--figsize",
         type=float,
         nargs=2,
-        default=[6, 6],
+        default=[8, 8],
         help="Figure size (width height)"
     )
     parser.add_argument(
@@ -149,7 +149,7 @@ def main():
     method_x_display = method_names.get(args.method_x, args.method_x)
     method_y_display = method_names.get(args.method_y, args.method_y)
     
-    print(f"\nLoading data...")
+    print(f"\\nLoading data...")
     print(f"  X-axis: {method_x_display} ({args.method_x})")
     print(f"  Y-axis: {method_y_display} ({args.method_y})")
     
@@ -220,41 +220,76 @@ def main():
     
     # Create plot
     fig, ax = plt.subplots(figsize=tuple(args.figsize), dpi=args.dpi)
-    ax.scatter(pivot[args.method_x], pivot[args.method_y], s=80)
+    
+    # Plot points
+    ax.scatter(pivot[args.method_x], pivot[args.method_y], s=100, alpha=0.7, zorder=3)
     
     # Identity line
     lo = pivot[[args.method_x, args.method_y]].values.min()
     hi = pivot[[args.method_x, args.method_y]].values.max()
     pad = 0.05 * (hi - lo)
-    ax.plot([lo - pad, hi + pad], [lo - pad, hi + pad], "--", color="grey")
+    ax.plot([lo - pad, hi + pad], [lo - pad, hi + pad], "--", color="grey", lw=1.5, zorder=1)
     
-    # ─── annotate: stagger labels *below* dots that share the same y ────────────
-    label_vspace = 10   # points between successive labels
+    # Add labels with smart stacking to avoid overlap
+    # Group by similar y-values (within 0.02 threshold)
+    fontsize = 12
+    label_height_pts = fontsize * 2.0  # Approximate height in points with padding
     
-    for y_val, g in pivot.groupby(pivot[args.method_y].round(6)):
-        g = g.sort_values(args.method_x)            # left-to-right order
-        for i, (_, row) in enumerate(g.iterrows()):
-            dy = -i * label_vspace          # 0, −10, −20 … → downward
-            ax.annotate(
-                row["label"],
-                (row[args.method_x], row[args.method_y]),   # anchor at the dot
-                xytext=(6, dy),             # 6 pt right, dy down
-                textcoords="offset points",
-                fontsize=10,
-                ha="left", va="center"
-            )
+    # Convert points to data coordinates for spacing
+    # Get the data range
+    y_range = hi - lo
+    fig_height_inches = args.figsize[1]
+    fig_height_pts = fig_height_inches * 72  # 72 points per inch
+    
+    # Calculate vertical spacing in data units
+    # This ensures labels never overlap
+    label_spacing_data = (y_range / fig_height_pts) * label_height_pts
+    
+    # Group points with similar y-values
+    tolerance = 0.02  # Group points within 2% of y-range
+    pivot_sorted = pivot.sort_values(args.method_y)
+    
+    for _, row in pivot_sorted.iterrows():
+        x_val = row[args.method_x]
+        y_val = row[args.method_y]
+        label = row["label"]
+        
+        # Check for nearby labels already placed
+        # Find how many labels are already at similar y-position
+        nearby = pivot_sorted[
+            (pivot_sorted[args.method_y] >= y_val - tolerance) & 
+            (pivot_sorted[args.method_y] <= y_val + tolerance) &
+            (pivot_sorted.index <= row.name)  # Only count already-processed points
+        ]
+        
+        # Stack vertically based on how many nearby points exist
+        stack_index = len(nearby) - 1
+        y_offset = stack_index * label_spacing_data
+
+        x_range = hi - lo
+        x_offset = x_range * 0.02
+        
+        # Place label slightly to the right of point
+        ax.text(
+            x_val + x_offset, 
+            y_val + y_offset,
+            label,
+            fontsize=fontsize,
+            ha='left',
+            va='center'
+        )
     
     # Labels and formatting
     metric_label = args.metric.replace("omim_", "OMIM ").replace("_", " ").title()
-    # ax.set_xlabel(method_x_display)
-    # ax.set_ylabel(method_y_display)
-    ax.set_xlabel("Random Negatives")
-    ax.set_ylabel("Hard Negatives")
-    ax.set_title(f"Top {args.k_value} Precision: Random Negatives vs Hard Negatives")
+    ax.set_xlabel("Random Negatives", fontsize=14)
+    ax.set_ylabel("Hard Negatives", fontsize=14)
+    # ax.set_title(f"Top {args.k_value} Precision: Negative Comparison", fontsize=16)
+    ax.set_title(f"Negative Data Comparison", fontsize=16)
     ax.set_xlim(lo - pad, hi + pad)
     ax.set_ylim(lo - pad, hi + pad)
     ax.set_aspect("equal", adjustable="box")
-    ax.grid(alpha=0.3)
+    ax.grid(alpha=0.3, zorder=0)
+    ax.tick_params(labelsize=10)
     plt.tight_layout()
     
     # Save
@@ -267,10 +302,10 @@ def main():
     fig.savefig(output_path, dpi=args.dpi, bbox_inches="tight")
     plt.close(fig)
     
-    print(f"\n✓ Saved plot to {output_path}")
+    print(f"\\n✓ Saved plot to {output_path}")
     
     # Print summary statistics
-    print(f"\nSummary Statistics:")
+    print(f"\\nSummary Statistics:")
     print(f"  Mean {metric_label} ({method_x_display}): {pivot[args.method_x].mean():.4f}")
     print(f"  Mean {metric_label} ({method_y_display}): {pivot[args.method_y].mean():.4f}")
     print(f"  Difference: {pivot[args.method_y].mean() - pivot[args.method_x].mean():.4f}")
