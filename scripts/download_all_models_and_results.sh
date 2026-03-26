@@ -19,25 +19,25 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' 
 
-DOWNLOAD_ALL_URL = "https://zenodo.org/api/records/18791945/files-archive"
+DOWNLOAD_ALL_URL="https://zenodo.org/api/records/19150162/files-archive"
 
 # ============================================================================
 # RESULT ARCHIVE URLs - Fill in the actual Zenodo URLs here
 # ============================================================================
 declare -A RESULT_URLS=(
-    ["best_model"]="https://zenodo.org/records/18791945/files/best_model.zip?download=1"
-    ["best_model_xc_v3"]="https://zenodo.org/records/18791945/files/best_model_xc_v3.zip?download=1"
-    ["disease_net_feature_removal"]="https://zenodo.org/records/18791945/files/disease_net_feature_removal.zip?download=1"
-    ["gene_net_feature_removal"]="https://zenodo.org/records/18791945/files/gene_net_feature_removal.zip?download=1"
-    ["humannet_comparison"]="https://zenodo.org/records/18791945/files/humannet_comparison.zip?download=1"
-    ["model_comparison"]="https://zenodo.org/records/18791945/files/model_comparison.zip?download=1"
-    ["negative_comparison"]="https://zenodo.org/records/18791945/files/negative_comparison.zip?download=1"
+    ["DGF"]="https://zenodo.org/records/19150162/files/DisGeneFormer.zip?download=1"
+    ["DGF_filtered"]="https://zenodo.org/records/19150162/files/DisGeneFormer_filtered.zip?download=1"
+    ["disease_net_feature_removal"]="https://zenodo.org/records/19150162/files/disease_net_feature_removal.zip?download=1"
+    ["gene_net_feature_removal"]="https://zenodo.org/records/19150162/files/gene_net_feature_removal.zip?download=1"
+    ["humannet_comparison"]="https://zenodo.org/records/19150162/files/humannet_comparison.zip?download=1"
+    ["model_comparison"]="https://zenodo.org/records/19150162/files/model_comparison.zip?download=1"
+    ["negative_comparison"]="https://zenodo.org/records/19150162/files/negative_comparison.zip?download=1"
 )
 
 # Result archive names
 declare -A RESULT_FILES=(
-    ["best_model"]="best_model.zip"
-    ["best_model_xc_v3"]="best_model_xc_v3.zip"
+    ["DGF"]="DisGeneFormer.zip"
+    ["DGF_filtered"]="DisGeneFormer_filtered.zip"
     ["disease_net_feature_removal"]="disease_net_feature_removal.zip"
     ["gene_net_feature_removal"]="gene_net_feature_removal.zip"
     ["humannet_comparison"]="humannet_comparison.zip"

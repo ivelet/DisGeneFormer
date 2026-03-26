@@ -26,3 +26,6 @@ plots/combine_figs.tex
 scripts/zip_all_results.sh
 scripts/setup_experiment.sh
 scripts/run_humannet_comparison.sh
+
+results/hard_negatives_ablation
+results/run_humannet_comparison_disease_specific
