@@ -8,13 +8,13 @@ Any publication that discloses findings arising from using this source code, the
 If you encounter any problems, please open an Issue on this repository.
 
 ## Table of contents
-* [Setup and Installation](#setup)
+* [Setup and Installation](#setup-and-installation)
     * [Environment](#environment)
-    * [Download all datasets](#environment)
+    * [Download all datasets](#download-all-datasets)
 * [Usage](#usage)
     * [Train DisGeneFormer](#train-disgeneformer)
     * [Predict disease gene rankings with DisGeneFormer](#predict-disease-gene-rankings-with-disgeneformer)
-    * [Evaluate DisGeneFormer's gene rankings against known disease gene associations](#evaluate-disGeneFormer's-gene-rankings-against-known-disease-gene-associations)
+    * [Evaluate DisGeneFormer's gene rankings against known disease gene associations](#evaluate-disgeneformers-gene-rankings-against-known-disease-gene-associations)
 * [Reproduce all results](#reproduce-all-results)
     * [Reproduce all results without training](#reproduce-all-results-without-training)
     * [Download all models and results](#download-all-models-and-results)
