@@ -1,10 +1,6 @@
 # DisGeneFormer
 An Attention-based Graph Transformer for Disease Gene Prioritization. 
 
-We describe our approach in the Preprint [“DisGeneFormer: Precise Disease Gene Prioritization by Integrating Local and Global Graph Attention”](https://www.biorxiv.org/content/10.64898/2026.03.11.711106).
-
-Any publication that discloses findings arising from using this source code, the model parameters, or outputs produced by those should also cite this paper.
-
 If you encounter any problems, please open an Issue on this repository.
 
 ## Table of contents
